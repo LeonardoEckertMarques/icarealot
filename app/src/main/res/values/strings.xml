@@ -1,0 +1,6 @@
+<!--
+Padrão utilizado nome da tela + _ + id no layout
+-->
+<resources>
+    <string name="app_name">I Care a Lot</string>
+</resources>
