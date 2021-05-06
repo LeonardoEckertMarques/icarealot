@@ -2,5 +2,27 @@
 Padrão utilizado nome da tela + _ + id no layout
 -->
 <resources>
+    <!-- Nome do Aplicativo -->
     <string name="app_name">I Care a Lot</string>
+    <!-- Activity Permissões -->
+    <string name="permissoes_btn">Aceitar</string>
+    <string name="permissoes_top">Pular</string>
+    <string name="permissoes_center_title">Começando...</string>
+    <!-- Acitivy Login -->
+    <string name="login_top">Deseja se Cadastrar?</string>
+    <string name="login_cadastrar">Cadastrar</string>
+    <string name="login_midias">ou use as redes sociais</string>
+    <string name="login_nome_tv">Nome Completo</string>
+    <string name="login_email_tv">Email</string>
+    <string name="login_cpf_cnpj_tv">CPF / CNPJ</string>
+    <string name="login_senha_tv">Senha</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
