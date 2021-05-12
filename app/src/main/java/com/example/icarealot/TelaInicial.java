@@ -11,4 +11,7 @@ public class TelaInicial extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_tela_inicial);
   }
+
+  // Teste Alexsander
+
 }
