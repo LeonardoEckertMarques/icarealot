@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1067269267820",
+    "project_id": "icarealot-47aeb",
+    "storage_bucket": "icarealot-47aeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067269267820:android:d234314491e8ccae4dd349",
+        "android_client_info": {
+          "package_name": "com.example.icarealot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067269267820-ps2f8ggijvtaodbnkno5c2tuuv8fa7c5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4xzEBYD8FvRtLplRvjQ5rSTOtdwBX568"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067269267820-ps2f8ggijvtaodbnkno5c2tuuv8fa7c5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
