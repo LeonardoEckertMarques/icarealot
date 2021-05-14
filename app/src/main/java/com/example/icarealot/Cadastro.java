@@ -3,7 +3,6 @@ package com.example.icarealot;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,9 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.icarealot.model.Usuario;
 
-public class Cadastro extends AppCompatActivity {
+public class Cadastro extends AppCompatActivity implements View.OnClickListener {
 
   private Button btn;
+  private Button btnLogar;
+  private Button btnPular;
   private EditText usuario;
   private EditText senha;
 
@@ -22,29 +23,28 @@ public class Cadastro extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_cadastro);
-    //Deixar por aqui por enquanto
-    //Depois da pra mepar dentro do Manifest
-    //getSupportActionBar().hide();
-    //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-    btn = findViewById(R.id.button);
+    btn = findViewById(R.id.btn_cadastro);
     usuario = findViewById(R.id.usuario);
     senha = findViewById(R.id.senha);
-
-    btn.setOnClickListener(new View.OnClickListener(){
-      public void onClick(View v) {
-        String u = usuario.getText().toString();
-        String s = senha.getText().toString();
-        if (u.equals(s) && !u.isEmpty()) {
-          Intent i = new Intent(Cadastro.this, TelaInicial.class);
-          Usuario user = new Usuario(u, s);
-          i.putExtra("obj_usuario", user);
-          startActivity(i);
-        } else {
-          Toast.makeText(getApplicationContext(), "Erro! Usuário / senha são diferentes ou em branco!", Toast.LENGTH_SHORT).show();
-        }
-      }
-    });
-
+    btnLogar = findViewById(R.id.btnLogar);
+    btnPular = findViewById(R.id.btnPular);
+    btnLogar.setOnClickListener(this);
+    btnPular.setOnClickListener(this);
   }
+
+  public void onClick(View view) {
+    Intent i;
+    switch (view.getId()) {
+      case R.id.btnLogar:
+        i = new Intent(Cadastro.this, Login.class);
+        startActivity(i);
+        break;
+      case R.id.btnPular:
+        i = new Intent(Cadastro.this, TelaInicial.class);
+        startActivity(i);
+      default:
+        break;
+    }
+  }
+
 }
