@@ -11,4 +11,6 @@
     <color name="silver">#b1b1b1</color>
     <color name="blueclair">#cfe7f5</color>
     <color name="red">#FF0000</color>
+    <color name="start">#87CEFA</color>
+    <color name="end">#DC143C</color>
 </resources>

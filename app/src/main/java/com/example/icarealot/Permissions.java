@@ -17,8 +17,8 @@ public class Permissions extends AppCompatActivity implements View.OnClickListen
     setContentView(R.layout.activity_permissions);
     //Deixar por aqui por enquanto
     //Depois da pra mepar dentro do Manifest
-    getSupportActionBar().hide();
-    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    //getSupportActionBar().hide();
+    //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     Button permissions_btn = findViewById(R.id.permissions_btn);
     //Trocar por um botão!!!!
     //TextView permissions_tv = findViewById(R.id.permissoes_top);
