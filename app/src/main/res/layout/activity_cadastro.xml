@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,13 +8,102 @@
     <EditText
         android:id="@+id/usuario"
         android:layout_width="337dp"
-        android:layout_height="62dp"
+        android:layout_height="70dp"
         android:ems="10"
         android:hint="@string/login_nome_tv"
         android:inputType="textPersonName"
+        android:backgroundTint="@color/end"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="162dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.228" />
+
+    <EditText
+        android:id="@+id/cpf_cnpj"
+        android:layout_width="337dp"
+        android:layout_height="70dp"
+        android:ems="10"
+        android:hint="@string/login_cpf_cnpj_tv"
+        android:inputType="textPersonName"
+        android:backgroundTint="@color/end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
+
+    <TextView
+        android:id="@+id/login_cpf_cnpj_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/login_cpf_cnpj_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.106"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.436" />
+
+    <TextView
+        android:id="@+id/login_nome_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_nome_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.116"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.188" />
+
+
+    <Button
+        android:id="@+id/btn_cadastro"
+        android:layout_width="337dp"
+        android:layout_height="70dp"
+        android:width="38mm"
+        android:backgroundTint="@color/end"
+        android:text="@string/login_cadastrar"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.824" />
+
+    <ProgressBar
+        android:id="@+id/cadastro_progessbar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/white"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.878" />
+
+    <EditText
+        android:id="@+id/senha"
+        android:layout_width="337dp"
+        android:layout_height="70dp"
+        android:ems="10"
+        android:hint="@string/login_senha_tv"
+        android:inputType="textPassword"
+        android:backgroundTint="@color/end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.633" />
 
     <TextView
         android:id="@+id/login_senha_tv"
@@ -24,110 +112,39 @@
         android:text="@string/login_senha_tv"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.099"
+        app:layout_constraintHorizontal_bias="0.096"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.61" />
+        app:layout_constraintVertical_bias="0.561" />
 
     <EditText
-        android:id="@+id/cpf_cnpj"
+        android:id="@+id/email"
         android:layout_width="337dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="38dp"
+        android:layout_height="70dp"
         android:ems="10"
-        android:hint="@string/login_cpf_cnpj_tv"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="358dp" />
-
-    <TextView
-        android:id="@+id/login_nome_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:text="@string/login_nome_tv"
-        app:layout_constraintBottom_toTopOf="@+id/usuario"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.119"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btn_cadastro"
-        android:layout_width="342dp"
-        android:layout_height="61dp"
-        android:width="38mm"
+        android:hint="@string/login_email_tv"
+        android:inputType="textEmailAddress"
         android:backgroundTint="@color/end"
-        android:text="@string/login_cadastrar"
-        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.801" />
+        app:layout_constraintVertical_bias="0.363" />
 
     <TextView
         android:id="@+id/login_email_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="340dp"
         android:text="@string/login_email_tv"
-        app:layout_constraintBottom_toTopOf="@+id/email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usuario"
-        app:layout_constraintVertical_bias="0.875" />
-
-    <TextView
-        android:id="@+id/login_cpf_cnpj_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="317dp"
-        android:hint="@string/login_cpf_cnpj_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="337dp" />
-
-    <EditText
-        android:id="@+id/senha"
-        android:layout_width="337dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="12dp"
-        android:ems="10"
-        android:hint="@string/login_senha_tv"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/btn_cadastro"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_senha_tv"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="337dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:hint="@string/login_email_tv"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="261dp" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.31" />
 
     <TextView
         android:id="@+id/textView"
@@ -183,5 +200,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022" />
+
+    <CheckBox
+        android:id="@+id/cb_mostrar_senha_cadastro"
+        android:layout_width="337dp"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/silver"
+        android:text="Mostrar senha?"
+        android:textColor="@color/silver"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.715" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

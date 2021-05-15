@@ -5,8 +5,7 @@ Padrão utilizado nome da tela + _ + id no layout
     <!-- Nome do Aplicativo -->
     <string name="app_name">I Care a Lot</string>
     <!-- Activity Permissões -->
-    <string name="permissoes_btn">Aceitar</string>
-    <string name="permissoes_top">Pular</string>
+    <string name="permissoes_btn">Avançar</string>
     <string name="permissoes_center_title">Começando...</string>
     <!-- Acitivy Login -->
     <string name="login_top">Deseja se Cadastrar?</string>
