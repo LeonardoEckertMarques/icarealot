@@ -59,6 +59,15 @@
         android:text="Logar"
         android:textColor="@color/white" />
 
+    <Button
+        android:id="@+id/btn_cadastro_login"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#30f2f2f2"
+        android:text="Cadastro"
+        android:textColor="@color/white" />
+
     <ProgressBar
         android:id="@+id/login_progessbar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"

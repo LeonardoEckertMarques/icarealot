@@ -14,4 +14,24 @@
         android:layout_height="wrap_content"
         android:text="Logout" />
 
+    <TextView
+        android:id="@+id/id_TelaInicial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="nome"
+        android:textAlignment="center"
+        android:textColor="@color/end"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/email_telaInicial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="email"
+        android:textAlignment="center"
+        android:textColor="@color/end"
+        android:textSize="30sp" />
+
 </LinearLayout>

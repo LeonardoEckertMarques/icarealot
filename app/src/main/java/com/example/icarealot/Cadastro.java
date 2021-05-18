@@ -2,6 +2,7 @@ package com.example.icarealot;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
@@ -32,7 +33,7 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
   private Button btnLogar;
   private Button btnPular;
   private CheckBox cb_mostrar_senha_cadastro;
-  //private ProgressBar cadastro_progessbar;
+  private ProgressBar cadastro_progessbar;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
     email = findViewById(R.id.email);
     senha = findViewById(R.id.senha);
     cb_mostrar_senha_cadastro = findViewById(R.id.cb_mostrar_senha_cadastro);
-    //cadastro_progessbar = findViewById(R.id.cadastro_progessbar);
+    cadastro_progessbar = findViewById(R.id.cadastro_progessbar);
     btnCadastro = findViewById(R.id.btn_cadastro);
     btnLogar = findViewById(R.id.btnLogar);
     btnPular = findViewById(R.id.btnPular);
@@ -74,12 +75,13 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
       case R.id.btnPular:
         intent = new Intent(Cadastro.this, TelaInicial.class);
         startActivity(intent);
+        break;
       case R.id.btn_cadastro:
         String registroEmail = email.getText().toString();
         String registroSenha = senha.getText().toString();
 
-        if(!registroEmail.isEmpty() || !registroSenha.isEmpty()) {
-          //cadastro_progessbar.setVisibility(View.VISIBLE);
+        if(!TextUtils.isEmpty(registroEmail) || !TextUtils.isEmpty(registroSenha)) {
+          cadastro_progessbar.setVisibility(View.VISIBLE);
           mAuth.createUserWithEmailAndPassword(registroEmail, registroSenha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -89,12 +91,15 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
                 String erro = task.getException().getMessage();
                 Toast.makeText(Cadastro.this, "Erro:"+ erro, Toast.LENGTH_SHORT).show();
               }
+              cadastro_progessbar.setVisibility(View.INVISIBLE);
             }
           });
+        } else {
+          Toast.makeText(Cadastro.this, "Erro: E-mail e/ou senha em branco!.", Toast.LENGTH_SHORT).show();
         }
-
-      default:
         break;
+      default:
+      break;
     }
   }
 

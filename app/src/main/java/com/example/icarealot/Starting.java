@@ -8,16 +8,21 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Starting extends AppCompatActivity implements View.OnClickListener {
 
-  TextView txtPermissoes;
+  private TextView txtPermissoes;
+  private FirebaseAuth mAuth;
 
   String[] permissoes = {
           Manifest.permission.INTERNET,
@@ -37,37 +42,38 @@ public class Starting extends AppCompatActivity implements View.OnClickListener 
     permissions_btn.setOnClickListener(this);
     txtPermissoes = findViewById(R.id.txtPermissioes);
 
-    if (verficarPermissoes()){
-
-
-    } else {
-
-         txtPermissoes.setText("Nem todas as permissões necessárias estão ativadas");
+    if (!verficarPermissoes()){
+      txtPermissoes.setText("Permissões necessárias não estão ativadas!");
     }
+
   }
 
-  public boolean verficarPermissoes(){
-
+  public boolean verficarPermissoes() {
     List<String> permissoesRequeridas = new ArrayList<>();
-
     for (String permissoes : permissoes){
-
         if (ContextCompat.checkSelfPermission(this, permissoes) != PackageManager.PERMISSION_GRANTED){
             permissoesRequeridas.add(permissoes);
         }
     }
 
     if (!permissoesRequeridas.isEmpty()){
-
       ActivityCompat.requestPermissions(this, permissoesRequeridas.toArray(new String[permissoesRequeridas.size()]), CODIGO_PERMISSOES_REQUERIDAS);
-
       return false;
     }
 
-    txtPermissoes.setText("Todas as permissões estão ativas");
-
+    txtPermissoes.setText("Começando...");
     return true;
+  }
 
+  @Override
+  protected void onStart() {
+    super.onStart();
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    if (currentUser != null) {
+      Intent intent = new Intent(Starting.this, TelaInicial.class);
+      startActivity(intent);
+      finish();
+    }
   }
 
   public void onClick(View view) {
@@ -75,9 +81,7 @@ public class Starting extends AppCompatActivity implements View.OnClickListener 
       case R.id.permissions_btn:
         Intent intent = new Intent(Starting.this, Cadastro.class);
         startActivity(intent);
-        finish();
-        break;
-      default:
+        finishAffinity();
         break;
     }
   }

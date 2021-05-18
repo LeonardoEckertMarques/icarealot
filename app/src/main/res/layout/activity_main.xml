@@ -11,13 +11,13 @@
 
     <ImageView
         android:id="@+id/banner"
-        android:layout_width="match_parent"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/logo" />
 
     <ProgressBar
         android:id="@+id/progressbar"
-        android:layout_width="match_parent"
+        android:layout_width="50dp"
         android:layout_height="100dp"
         android:layout_marginTop="30dp"
         android:indeterminate="true"
