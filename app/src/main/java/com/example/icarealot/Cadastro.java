@@ -33,6 +33,7 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
   private Button btnLogar;
   private Button btnPular;
   private CheckBox cb_mostrar_senha_cadastro;
+  private CheckBox cb_ong_cadastro;
   private ProgressBar cadastro_progessbar;
 
   @Override
@@ -46,6 +47,7 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
     cpfCnpj = findViewById(R.id.cpfCnpj);
     senha = findViewById(R.id.senha);
     cb_mostrar_senha_cadastro = findViewById(R.id.cb_mostrar_senha_cadastro);
+    cb_ong_cadastro = findViewById(R.id.cb_ong_cadastro);
     cadastro_progessbar = findViewById(R.id.cadastro_progessbar);
     btnCadastro = findViewById(R.id.btn_cadastro);
     btnLogar = findViewById(R.id.btnLogar);
@@ -64,7 +66,6 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
         }
       }
     });
-
   }
 
   public void onClick(View view) {
@@ -79,13 +80,13 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
         startActivity(intent);
         break;
       case R.id.btn_cadastro:
-
         UsuarioModel usuarioModel = new UsuarioModel();
 
         usuarioModel.setUsuario(nome.getText().toString());
         usuarioModel.setEmail(email.getText().toString());
         usuarioModel.setCpfCnpj(cpfCnpj.getText().toString());
         usuarioModel.setSenha(senha.getText().toString());
+        usuarioModel.setTipoOng(cb_ong_cadastro.isChecked());
 
         if(!TextUtils.isEmpty(usuarioModel.getUsuario()) || !TextUtils.isEmpty(usuarioModel.getCpfCnpj()) || !TextUtils.isEmpty(usuarioModel.getEmail()) || !TextUtils.isEmpty(usuarioModel.getSenha())) {
           cadastro_progessbar.setVisibility(View.VISIBLE);

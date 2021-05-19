@@ -215,11 +215,11 @@
         app:layout_constraintVertical_bias="0.715" />
 
     <CheckBox
-        android:id="@+id/cb_cadastro_PessoaFisica"
+        android:id="@+id/cb_ong_cadastro"
         android:layout_width="337dp"
         android:layout_height="wrap_content"
         android:buttonTint="@color/silver"
-        android:text="Cadastro Pessoa Fisica"
+        android:text="Nova instituição?"
         android:textColor="@color/silver"
         app:layout_constraintBottom_toTopOf="@+id/btn_cadastro"
         app:layout_constraintEnd_toEndOf="parent"
