@@ -18,7 +18,6 @@ public class Mapa extends AppCompatActivity {
     setContentView(R.layout.activity_mapa);
 
     BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
-    //bottomNavigationView.setSelectedItemId(R.id.navMap);
     Menu menu = bottomNavigationView.getMenu();
     MenuItem menuItem = menu.getItem(2);
     menuItem.setChecked(true);

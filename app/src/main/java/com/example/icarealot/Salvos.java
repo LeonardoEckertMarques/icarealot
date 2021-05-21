@@ -17,7 +17,6 @@ public class Salvos extends AppCompatActivity {
     setContentView(R.layout.activity_salvos);
 
     BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
-    //bottomNavigationView.setSelectedItemId(R.id.navSalvos);
     Menu menu = bottomNavigationView.getMenu();
     MenuItem menuItem = menu.getItem(1);
     menuItem.setChecked(true);
