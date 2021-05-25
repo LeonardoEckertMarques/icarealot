@@ -61,7 +61,7 @@ public class Starting extends AppCompatActivity implements View.OnClickListener 
       return false;
     }
 
-    txtPermissoes.setText("Começando...");
+    txtPermissoes.setText("Começando a cuidar da comunidade...");
     return true;
   }
 

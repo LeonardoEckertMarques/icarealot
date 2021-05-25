@@ -6,28 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".Salvos">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ongLists"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Salvos"
-        android:textSize="50sp" />
-
-    <Button
-        android:id="@+id/bLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Logout" />
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:background="@color/white"
         app:itemIconTint="@color/end"
         app:itemTextColor="@color/end"
-        app:menu="@menu/bottom_menu" />
+        app:menu="@menu/bottom_menu"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

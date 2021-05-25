@@ -1,29 +1,41 @@
 package com.example.icarealot;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Adapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.icarealot.adapter.CommentsAdapter;
-import com.example.icarealot.model.Comments;
+import com.example.icarealot.adapter.OngsAdapter;
+import com.example.icarealot.model.Ongs;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,40 +44,22 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TelaInicial extends AppCompatActivity
-        implements Response.Listener<JSONArray>,
-        Response.ErrorListener {
+public class TelaInicial extends AppCompatActivity {
 
-  List<Comments> comments = new ArrayList<>();
-
-  //implements View.OnClickListener
-  private FirebaseAuth mAuth;
-  private FirebaseDatabase mDatabase;
-  private ValueEventListener valueEventListener;
-  //private Button btnLogout;
-  //private TextView nome_TelaInicial;
-  //private TextView cpfCnpj_TelaIncial;
-  //private TextView email_TelaInicial;
-  //private TextView testes;
+  List<Ongs> ongsList;
+  RecyclerView recyclerView;
+  OngsAdapter ongsAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_tela_inicial);
-    //Instancia do BD
-    mDatabase = FirebaseDatabase.getInstance();
-    //btnLogout = findViewById(R.id.btnLogout);
-    //nome_TelaInicial = findViewById(R.id.nome_TelaInicial);
-    //cpfCnpj_TelaIncial = findViewById(R.id.cpfCnpj_TelaInicial);
-    //email_TelaInicial = findViewById(R.id.email_telaInicial);
-    //btnLogout.setOnClickListener(this);
+    setContentView(R.layout.layout_testes);
 
-    RequestQueue queue = Volley.newRequestQueue(this);
-    String url = "https://jsonplaceholder.typicode.com/comments";
-    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-            this, this);
-    queue.add(jsonArrayRequest);
+    recyclerView = findViewById(R.id.ongLists);
+    ongsList = new ArrayList<>();
+    extractOngs();
 
+    //Menu de itens importante anexar o INDEX para navegação do usuário!
     BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
     Menu menu = bottomNavigationView.getMenu();
     MenuItem menuItem = menu.getItem(0);
@@ -81,7 +75,7 @@ public class TelaInicial extends AppCompatActivity
             startActivity(new Intent(getApplicationContext(), Salvos.class));
             break;
           case R.id.navMap:
-            startActivity(new Intent(getApplicationContext(), MapsActivity.class));
+            startActivity(new Intent(getApplicationContext(), Mapa.class));
             break;
           case R.id.navPerfil:
             startActivity(new Intent(getApplicationContext(), Perfil.class));
@@ -90,86 +84,44 @@ public class TelaInicial extends AppCompatActivity
         return false;
       }
     });
-
   }
 
-  @Override
-  public void onResponse(JSONArray response) {
+  private void extractOngs() {
+    String url = "https://icarealot-47aeb-default-rtdb.firebaseio.com/ongs.json";
+    RequestQueue queue = Volley.newRequestQueue(this);
+    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+      @Override
+      public void onResponse(JSONArray response) {
+        for (int i = 0; i < response.length(); i++) {
+          try {
+            JSONObject jsonObject = response.getJSONObject(i);
+            Ongs ongs = new Ongs();
+            //ongs.setId(jsonObject.getString("id").toString());
+            ongs.setNome(jsonObject.getString("nome").toString());
+            //ongs.setDescricao(jsonObject.getString("descricao").toString());
+            //ongs.setTelefone(jsonObject.getString("telefone").toString());
+            ongs.setUrlFoto(jsonObject.getString("foto").toString());
+            ongsList.add(ongs);
+          } catch (JSONException e) {
+            e.printStackTrace();
+          }
+        }
+        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+        //recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        ongsAdapter = new OngsAdapter(getApplicationContext(), ongsList);
+        recyclerView.setAdapter(ongsAdapter);
 
-    try {
-      for(int i = 0; i < response.length(); i++) {
-        JSONObject json = response.getJSONObject(i);
-        Comments obj = new Comments(
-                json.getInt("postId"),
-                json.getInt("id"),
-                json.getString("name"),
-                json.getString("email"),
-                json.getString("body"));
-        comments.add(obj);
       }
+    }, new Response.ErrorListener() {
+      @Override
+      public void onErrorResponse(VolleyError error) {
+        Log.d("Log Salvos", "onErrorResponse" + error.getMessage());
+      }
+    });
 
-      Toast.makeText(this,"Recebido: " + comments.size() + " comments",Toast.LENGTH_LONG).show();
+    queue.add(jsonArrayRequest);
 
-      RecyclerView recycler = findViewById(R.id.recycler);
-      GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
-      recycler.setLayoutManager(gridLayoutManager);
-
-      CommentsAdapter commentsAdapter = new CommentsAdapter(comments, R.layout.layout_lista);
-      recycler.setAdapter(commentsAdapter);
-
-    } catch (JSONException e) {
-      Log.e("JSONException",e.getMessage());
-      e.printStackTrace();
-    }
   }
 
-  @Override
-  public void onErrorResponse(VolleyError error) {
-    String msg = error.getMessage();
-    Toast.makeText(TelaInicial.this,"onErrorResponse: "+msg,Toast.LENGTH_LONG).show();
-  }
-
-  /*
-  @Override
-  protected void onStart() {
-    super.onStart();
-    //getUserDados();
-  }
-
-  public void getUserDados() {
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    if (user != null) {
-      DatabaseReference reference = mDatabase.getReference().child("usuarios").child(user.getUid());
-      reference.addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot datasnapshot) {
-          String usuario = datasnapshot.child("usuario").getValue(String.class);
-          testes.setText(usuario);
-          String cpfCnpj = datasnapshot.child("cpfCnpj").getValue(String.class);
-          cpfCnpj_TelaIncial.setText(cpfCnpj);
-          String email = datasnapshot.child("email").getValue(String.class);
-          email_TelaInicial.setText(email);
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-        }
-      });
-    }
-  }
-
-
-  public void onClick(View view) {
-    switch (view.getId()) {
-      case R.id.home:
-        FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(TelaInicial.this, Cadastro.class);
-        startActivity(intent);
-        finish();
-        break;
-    }
-  }
-   */
 
 }

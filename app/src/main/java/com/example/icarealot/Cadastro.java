@@ -94,6 +94,7 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
               if(task.isSuccessful()) {
+                Toast.makeText(Cadastro.this, "Sucesso! Usuário cadastrato!", Toast.LENGTH_SHORT).show();
                 usuarioModel.setId(mAuth.getUid());
                 usuarioModel.salvaUsuario();
                 telaLogin();

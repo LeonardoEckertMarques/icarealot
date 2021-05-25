@@ -11,7 +11,7 @@ Padrão utilizado nome da tela + _ + id no layout
     <string name="login_top">Deseja se Cadastrar?</string>
     <string name="login_cadastrar">Cadastrar</string>
     <string name="login_midias">ou use as redes sociais</string>
-    <string name="login_nome_tv">Nome Completo</string>
+    <string name="login_nome_tv">Nome Completo / Usuário</string>
     <string name="login_email_tv">Email</string>
     <string name="login_cpf_cnpj_tv">CPF / CNPJ</string>
     <string name="login_senha_tv">Senha</string>

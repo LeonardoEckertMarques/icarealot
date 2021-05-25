@@ -10,7 +10,6 @@
         android:layout_width="337dp"
         android:layout_height="70dp"
         android:ems="10"
-        android:hint="@string/login_nome_tv"
         android:inputType="textPersonName"
         android:backgroundTint="@color/end"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +35,6 @@
         android:id="@+id/cpfCnpj"
         android:layout_width="337dp"
         android:layout_height="70dp"
-        android:hint="@string/login_cpf_cnpj_tv"
         android:inputType="textCapCharacters"
         android:backgroundTint="@color/end"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -46,6 +44,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.499" />
 
+
     <TextView
         android:id="@+id/login_nome_tv"
         android:layout_width="wrap_content"
@@ -53,11 +52,10 @@
         android:text="@string/login_nome_tv"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.116"
+        app:layout_constraintHorizontal_bias="0.145"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.188" />
-
+        app:layout_constraintVertical_bias="0.185" />
 
     <Button
         android:id="@+id/btn_cadastro"
@@ -94,7 +92,6 @@
         android:layout_width="337dp"
         android:layout_height="70dp"
         android:ems="10"
-        android:hint="@string/login_senha_tv"
         android:inputType="textPassword"
         android:backgroundTint="@color/end"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -121,7 +118,6 @@
         android:layout_width="337dp"
         android:layout_height="70dp"
         android:ems="10"
-        android:hint="@string/login_email_tv"
         android:inputType="textEmailAddress"
         android:backgroundTint="@color/end"
         app:layout_constraintBottom_toBottomOf="parent"
