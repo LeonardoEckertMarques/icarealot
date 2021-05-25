@@ -79,7 +79,7 @@ public class Salvos extends AppCompatActivity implements View.OnClickListener {
           case R.id.navSalvos:
             break;
           case R.id.navMap:
-            startActivity(new Intent(getApplicationContext(), Mapa.class));
+            startActivity(new Intent(getApplicationContext(), MapsActivity.class));
             break;
           case R.id.navPerfil:
             startActivity(new Intent(getApplicationContext(), Perfil.class));
