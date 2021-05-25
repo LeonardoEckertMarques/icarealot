@@ -17,10 +17,11 @@
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="2dp"
         android:background="@color/white"
         app:itemIconTint="@color/end"
         app:itemTextColor="@color/end"
-        app:menu="@menu/bottom_menu"
-        android:layout_alignParentBottom="true"/>
+        app:menu="@menu/bottom_menu" />
 
 </RelativeLayout>
