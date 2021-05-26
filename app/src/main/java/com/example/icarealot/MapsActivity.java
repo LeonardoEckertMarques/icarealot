@@ -86,7 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(porto_alegre));
 
         // Seleciona o modo que o mapa é mostrado
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         // mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
 
@@ -107,10 +107,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         CameraPosition cameraPosition = new CameraPosition.Builder().zoom(15).target(currentLocationLatLong).build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-        // ESSE LOCATIODATA É PARA SALVAR NO FIREBASE
-        /*
         LocationData locationData = new LocationData(location.getLatitude(), location.getLongitude());
-mDatabase.child("Location").child(String.valueOf(new Date).getTime))).mDatabase.setValue();*/
+        //mDatabase.child("Location").child(String.valueOf(new Date).getTime))).mDatabase.setValue();
 
         Toast.makeText(this, "Localização Atualizada", Toast.LENGTH_SHORT).show();
 
