@@ -34,16 +34,16 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".services.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".Perfil" />
-        <activity android:name=".Mapa" />
-        <activity android:name=".Salvos" />
-        <activity android:name=".Cadastro" />
-        <activity android:name=".Login" />
-        <activity android:name=".TelaInicial" />
-        <activity android:name=".Starting" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activites.Perfil" />
+        <activity android:name=".activites.Mapa" />
+        <activity android:name=".activites.Salvos" />
+        <activity android:name=".activites.Cadastro" />
+        <activity android:name=".activites.Login" />
+        <activity android:name=".activites.TelaInicial" />
+        <activity android:name=".activites.Starting" />
+        <activity android:name=".activites.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

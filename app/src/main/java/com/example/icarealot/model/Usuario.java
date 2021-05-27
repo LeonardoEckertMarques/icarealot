@@ -7,7 +7,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class UsuarioModel {
+public class Usuario {
 
   private String id;
   private String usuario;
@@ -16,11 +16,11 @@ public class UsuarioModel {
   private String cpfCnpj;
   private Boolean tipoOng;
 
-  public UsuarioModel() {
+  public Usuario() {
 
   }
 
-  public UsuarioModel(String id, String usuario, String email, String senha, String cpfCnpj, Boolean tipoOng) {
+  public Usuario(String id, String usuario, String email, String senha, String cpfCnpj, Boolean tipoOng) {
     this.id = id;
     this.usuario = usuario;
     this.email = email;

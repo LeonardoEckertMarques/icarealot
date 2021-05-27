@@ -1,6 +1,5 @@
-package com.example.icarealot;
+package com.example.icarealot.activites;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,9 +15,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.example.icarealot.R;
+import com.example.icarealot.services.FirebaseServices;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
@@ -66,22 +64,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
       case R.id.btn_login:
         String email = edit_email.getText().toString();
         String senha = edit_senha.getText().toString();
-
         if(!TextUtils.isEmpty(email) || !TextUtils.isEmpty(senha)) {
           login_progessbar.setVisibility(View.VISIBLE);
-          mAuth.signInWithEmailAndPassword(email, senha)
-                  .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                      if (task.isSuccessful()) {
-                        telaPrincipal();
-                      } else {
-                        String erro = task.getException().getMessage();
-                        Toast.makeText(Login.this, "Erro: "+ erro, Toast.LENGTH_SHORT).show();
-                        login_progessbar.setVisibility(View.INVISIBLE);
-                      }
-                    }
-                  });
+          if (FirebaseServices.getFirebaseAuthEmailSenha(email, senha)) {
+            telaPrincipal();
+          }
         } else {
           Toast.makeText(Login.this, "E-mail e/ou senha inválidos!.", Toast.LENGTH_SHORT).show();
         }

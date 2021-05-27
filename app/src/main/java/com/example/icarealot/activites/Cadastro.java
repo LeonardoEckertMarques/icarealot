@@ -1,4 +1,4 @@
-package com.example.icarealot;
+package com.example.icarealot.activites;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.icarealot.model.UsuarioModel;
+import com.example.icarealot.R;
+import com.example.icarealot.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -80,23 +81,23 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
         startActivity(intent);
         break;
       case R.id.btn_cadastro:
-        UsuarioModel usuarioModel = new UsuarioModel();
+        Usuario usuario = new Usuario();
 
-        usuarioModel.setUsuario(nome.getText().toString());
-        usuarioModel.setEmail(email.getText().toString());
-        usuarioModel.setCpfCnpj(cpfCnpj.getText().toString());
-        usuarioModel.setSenha(senha.getText().toString());
-        usuarioModel.setTipoOng(cb_ong_cadastro.isChecked());
+        usuario.setUsuario(nome.getText().toString());
+        usuario.setEmail(email.getText().toString());
+        usuario.setCpfCnpj(cpfCnpj.getText().toString());
+        usuario.setSenha(senha.getText().toString());
+        usuario.setTipoOng(cb_ong_cadastro.isChecked());
 
-        if(!TextUtils.isEmpty(usuarioModel.getUsuario()) || !TextUtils.isEmpty(usuarioModel.getCpfCnpj()) || !TextUtils.isEmpty(usuarioModel.getEmail()) || !TextUtils.isEmpty(usuarioModel.getSenha())) {
+        if(!TextUtils.isEmpty(usuario.getUsuario()) || !TextUtils.isEmpty(usuario.getCpfCnpj()) || !TextUtils.isEmpty(usuario.getEmail()) || !TextUtils.isEmpty(usuario.getSenha())) {
           cadastro_progessbar.setVisibility(View.VISIBLE);
-          mAuth.createUserWithEmailAndPassword(usuarioModel.getEmail(), usuarioModel.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+          mAuth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
               if(task.isSuccessful()) {
                 Toast.makeText(Cadastro.this, "Sucesso! Usuário cadastrato!", Toast.LENGTH_SHORT).show();
-                usuarioModel.setId(mAuth.getUid());
-                usuarioModel.salvaUsuario();
+                usuario.setId(mAuth.getUid());
+                usuario.salvaUsuario();
                 telaLogin();
               } else {
                 String erro = task.getException().getMessage();

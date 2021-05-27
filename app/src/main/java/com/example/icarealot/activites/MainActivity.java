@@ -1,10 +1,12 @@
-package com.example.icarealot;
+package com.example.icarealot.activites;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.example.icarealot.R;
 
 public class MainActivity extends AppCompatActivity  {
 

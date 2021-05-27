@@ -1,4 +1,4 @@
-package com.example.icarealot;
+package com.example.icarealot.activites;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -8,13 +8,13 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.example.icarealot.R;
+import com.example.icarealot.controller.StartingController;
+import com.example.icarealot.services.FirebaseServices;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,8 @@ import java.util.List;
 public class Starting extends AppCompatActivity implements View.OnClickListener {
 
   private TextView txtPermissoes;
-  private FirebaseAuth mAuth;
+
+  public static final int CODIGO_PERMISSOES_REQUERIDAS = 1;
 
   String[] permissoes = {
           Manifest.permission.INTERNET,
@@ -32,20 +33,17 @@ public class Starting extends AppCompatActivity implements View.OnClickListener 
           Manifest.permission.RECORD_AUDIO
   };
 
-  public static final int CODIGO_PERMISSOES_REQUERIDAS = 1;
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_starting);
+    txtPermissoes = findViewById(R.id.txtPermissioes);
     Button permissions_btn = findViewById(R.id.permissions_btn);
     permissions_btn.setOnClickListener(this);
-    txtPermissoes = findViewById(R.id.txtPermissioes);
-
+    //StartingController startingController = new StartingController();
     if (!verficarPermissoes()){
       txtPermissoes.setText("Permissões necessárias não estão ativadas!");
     }
-
   }
 
   public boolean verficarPermissoes() {
@@ -55,12 +53,10 @@ public class Starting extends AppCompatActivity implements View.OnClickListener 
             permissoesRequeridas.add(permissoes);
         }
     }
-
     if (!permissoesRequeridas.isEmpty()){
       ActivityCompat.requestPermissions(this, permissoesRequeridas.toArray(new String[permissoesRequeridas.size()]), CODIGO_PERMISSOES_REQUERIDAS);
       return false;
     }
-
     txtPermissoes.setText("Começando a cuidar da comunidade...");
     return true;
   }
@@ -68,8 +64,7 @@ public class Starting extends AppCompatActivity implements View.OnClickListener 
   @Override
   protected void onStart() {
     super.onStart();
-    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    if (currentUser != null) {
+    if (FirebaseServices.getFirebaseUserCurrentUserInstance() != null) {
       Intent intent = new Intent(Starting.this, TelaInicial.class);
       startActivity(intent);
       finish();
@@ -85,4 +80,5 @@ public class Starting extends AppCompatActivity implements View.OnClickListener 
         break;
     }
   }
+
 }
