@@ -22,6 +22,7 @@ public class Mapa extends AppCompatActivity {
     Menu menu = bottomNavigationView.getMenu();
     MenuItem menuItem = menu.getItem(2);
     menuItem.setChecked(true);
+
     bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
       @Override
       public boolean onNavigationItemSelected(@NonNull MenuItem item) {

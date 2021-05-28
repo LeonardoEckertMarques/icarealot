@@ -27,18 +27,6 @@ public class FirebaseServices {
     FirebaseAuth.getInstance().signOut();
   }
 
-  public static Boolean getFirebaseAuthEmailSenha(String email, String senha) {
-    mAuth = FirebaseAuth.getInstance();
-    mAuth.signInWithEmailAndPassword(email, senha)
-            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-              @Override
-              public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                }
-              }
-            });
-    return true;
-  }
 
   public static FirebaseDatabase getFirebaseDatabaseInstance() {
     if (mDatabase == null) {

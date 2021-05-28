@@ -31,7 +31,6 @@ public class Perfil extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_perfil);
-    //Instancia do BD
     mDatabase = FirebaseDatabase.getInstance();
     nome_TelaPerfil = findViewById(R.id.nome_TelaPerfil);
 
@@ -39,6 +38,7 @@ public class Perfil extends AppCompatActivity {
     Menu menu = bottomNavigationView.getMenu();
     MenuItem menuItem = menu.getItem(3);
     menuItem.setChecked(true);
+
     bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
       @Override
       public boolean onNavigationItemSelected(@NonNull MenuItem item) {

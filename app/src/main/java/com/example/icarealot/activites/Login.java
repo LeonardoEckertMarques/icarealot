@@ -1,5 +1,6 @@
 package com.example.icarealot.activites;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,11 +18,15 @@ import android.widget.Toast;
 
 import com.example.icarealot.R;
 import com.example.icarealot.services.FirebaseServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
+public class Login extends AppCompatActivity
+        implements View.OnClickListener,
+        CompoundButton.OnCheckedChangeListener {
 
-  private FirebaseAuth mAuth;
   private EditText edit_email;
   private EditText edit_senha;
   private Button btn_login;
@@ -34,57 +39,61 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
 
-    mAuth = FirebaseAuth.getInstance();
     edit_email = findViewById(R.id.edit_email);
     edit_senha = findViewById(R.id.edit_senha);
     btn_login = findViewById(R.id.btn_login);
     btn_cadastro_login = findViewById(R.id.btn_cadastro_login);
     cb_mostrar_senha = findViewById(R.id.cb_mostrar_senha);
     login_progessbar = findViewById(R.id.login_progessbar);
+
     btn_login.setOnClickListener(this);
     btn_cadastro_login.setOnClickListener(this);
+  }
 
-    cb_mostrar_senha.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-      @Override
-      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-          edit_senha.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-        } else {
-          edit_senha.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        }
-      }
-    });
-
+  public void onLogarUsuario() {
+    String email = edit_email.getText().toString();
+    String senha = edit_senha.getText().toString();
+    if (!TextUtils.isEmpty(email) || !TextUtils.isEmpty(senha)) {
+      login_progessbar.setVisibility(View.VISIBLE);
+      FirebaseServices.getFirebaseAuthInstance().signInWithEmailAndPassword(email, senha)
+              .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                  if (task.isSuccessful()) {
+                    startActivity(new Intent(Login.this, TelaInicial.class));
+                    finish();
+                  } else {
+                    String erro = task.getException().getMessage();
+                    Toast.makeText(Login.this, "Erro: " + erro, Toast.LENGTH_SHORT).show();
+                    login_progessbar.setVisibility(View.INVISIBLE);
+                  }
+                }
+              });
+    } else {
+      Toast.makeText(Login.this, "E-mail e/ou senha inválidos!.", Toast.LENGTH_SHORT).show();
+    }
   }
 
   @Override
   public void onClick(View view) {
-    Intent intent;
     switch (view.getId()) {
       case R.id.btn_login:
-        String email = edit_email.getText().toString();
-        String senha = edit_senha.getText().toString();
-        if(!TextUtils.isEmpty(email) || !TextUtils.isEmpty(senha)) {
-          login_progessbar.setVisibility(View.VISIBLE);
-          if (FirebaseServices.getFirebaseAuthEmailSenha(email, senha)) {
-            telaPrincipal();
-          }
-        } else {
-          Toast.makeText(Login.this, "E-mail e/ou senha inválidos!.", Toast.LENGTH_SHORT).show();
-        }
+        onLogarUsuario();
         break;
       case R.id.btn_cadastro_login:
-        intent = new Intent(Login.this, Cadastro.class);
-        startActivity(intent);
+        startActivity(new Intent(Login.this, Cadastro.class));
         finish();
         break;
     }
   }
 
-  private void telaPrincipal() {
-    Intent i = new Intent(Login.this, TelaInicial.class);
-    startActivity(i);
-    finish();
+  @Override
+  public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+    if (isChecked) {
+      edit_senha.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+    } else {
+      edit_senha.setTransformationMethod(PasswordTransformationMethod.getInstance());
+    }
   }
 
 }
