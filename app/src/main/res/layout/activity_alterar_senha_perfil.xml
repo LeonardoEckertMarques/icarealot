@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:background="@color/end"
         android:text="Alterar"
-        android:textColor="@color/white"
+        android:textColor="@color/blueclair"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

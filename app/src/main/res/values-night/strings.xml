@@ -27,6 +27,6 @@ Padrão utilizado nome da tela + _ + id no layout
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
-    <string name="text">Light Mode</string>
+    <string name="text">Night Mode</string>
 
 </resources>
