@@ -116,6 +116,7 @@ public class AlterarSenhaPerfil extends AppCompatActivity {
                 builder.show();
             }else {
                 reference.child("senha").setValue(password);
+                user.updatePassword(password);
                 builder.setMessage("Senha Alterada com sucesso!");
                 builder.setCancelable(true);
                 builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
