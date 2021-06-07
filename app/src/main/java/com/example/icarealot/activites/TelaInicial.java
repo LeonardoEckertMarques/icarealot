@@ -36,6 +36,8 @@ public class TelaInicial extends AppCompatActivity {
   RecyclerView recyclerView;
   OngsAdapter ongsAdapter;
 
+  //testes
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
