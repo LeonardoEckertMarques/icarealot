@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.icarealot.R;
+import com.example.icarealot.services.FirebaseServices;
 import com.example.icarealot.services.MapsActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -47,11 +49,11 @@ public class Perfil extends AppCompatActivity {
   private FirebaseDatabase mDatabase;
   private ValueEventListener valueEventListener;
   private TextView nome_TelaPerfil;
-  private TextView cidade_TelaPerfil;
   private Button dadosPessoais;
   private Button configuracoes;
   private Button salvos;
   private Button notifica;
+  private Button logout;
   private CircleImageView imagemPerfil;
   public Uri imageUri;
   private FirebaseStorage storage;
@@ -66,12 +68,12 @@ public class Perfil extends AppCompatActivity {
     setContentView(R.layout.activity_perfil);
     mDatabase = FirebaseDatabase.getInstance();
     nome_TelaPerfil = findViewById(R.id.nome_TelaPerfil);
-    cidade_TelaPerfil = findViewById(R.id.cidade_TelaPerfil);
     dadosPessoais = findViewById(R.id.btn_dados_TelaPerfil);
     imagemPerfil = findViewById(R.id.foto_TelaPerfil);
     configuracoes = findViewById(R.id.btn_configuracoes_TelaPerfil);
     salvos = findViewById(R.id.btn_salvos_TelaPerfil);
     notifica = findViewById(R.id.btn_notificacoes_TelaPerfil);
+    logout = findViewById(R.id.btn_logout_TelaPerfil2);
     storage = FirebaseStorage.getInstance();
     storageReference = storage.getReference();
 
@@ -108,6 +110,16 @@ public class Perfil extends AppCompatActivity {
         Intent i = new Intent(Perfil.this, NotificacoesPerfil.class);
         startActivity(i);
         CustomIntent.customType(Perfil.this, "left-to-right");
+      }
+    });
+    logout.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        FirebaseServices.getFirebaseAuthLogout();
+        Intent intent = new Intent(Perfil.this, Cadastro.class);
+        startActivity(intent);
+        finish();
+
       }
     });
     imagemPerfil.setOnClickListener(new View.OnClickListener() {
@@ -189,12 +201,18 @@ public class Perfil extends AppCompatActivity {
   protected void onStart() {
     super.onStart();
     getUserDados();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    if (user == null) {
+      startActivity(new Intent(getApplicationContext(), Cadastro.class));
+    }
   }
 
   public void getUserDados() {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     if (user != null) {
       DatabaseReference reference = mDatabase.getReference().child("usuarios").child(user.getUid());
+      Log.i("onresponse ", "onresponse"+ reference);
+
       reference.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot datasnapshot) {
@@ -206,10 +224,11 @@ public class Perfil extends AppCompatActivity {
 
         }
       });
+      if(user.getPhotoUrl()!= null){
+        Glide.with(this).load(user.getPhotoUrl()).into(imagemPerfil);
+      }
     }
-    if(user.getPhotoUrl()!= null){
-      Glide.with(this).load(user.getPhotoUrl()).into(imagemPerfil);
-    }
+
 
   }
   private void uploadPicture(){
