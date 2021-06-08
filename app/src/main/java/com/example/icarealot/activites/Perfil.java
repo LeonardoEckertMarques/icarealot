@@ -116,7 +116,7 @@ public class Perfil extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         FirebaseServices.getFirebaseAuthLogout();
-        Intent intent = new Intent(Perfil.this, Cadastro.class);
+        Intent intent = new Intent(Perfil.this, Login.class);
         startActivity(intent);
         finish();
 
