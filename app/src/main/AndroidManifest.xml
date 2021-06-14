@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".activites.NotificacoesPerfil"></activity>
+        <activity android:name=".activites.DadosOng"></activity>
+        <activity android:name=".activites.NotificacoesPerfil" />
         <activity android:name=".activites.SalvosPerfil" />
         <activity android:name=".activites.AlterarSenhaPerfil" />
         <activity android:name=".activites.ConfiguracoesPerfil" />

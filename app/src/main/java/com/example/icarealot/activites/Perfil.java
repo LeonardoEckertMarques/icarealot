@@ -51,14 +51,16 @@ public class Perfil extends AppCompatActivity {
   private TextView nome_TelaPerfil;
   private Button dadosPessoais;
   private Button configuracoes;
-  private Button salvos;
   private Button notifica;
   private Button logout;
+  private Button dadosOng;
+  private View divisor;
   private CircleImageView imagemPerfil;
   public Uri imageUri;
   private FirebaseStorage storage;
   private StorageReference storageReference;
   private DatabaseReference databaseReference;
+
 
 
 
@@ -71,13 +73,23 @@ public class Perfil extends AppCompatActivity {
     dadosPessoais = findViewById(R.id.btn_dados_TelaPerfil);
     imagemPerfil = findViewById(R.id.foto_TelaPerfil);
     configuracoes = findViewById(R.id.btn_configuracoes_TelaPerfil);
-    salvos = findViewById(R.id.btn_salvos_TelaPerfil);
     notifica = findViewById(R.id.btn_notificacoes_TelaPerfil);
     logout = findViewById(R.id.btn_logout_TelaPerfil2);
+    dadosOng = findViewById(R.id.btn_dadosOng_TelaPerfil);
+    divisor = findViewById(R.id.divisorOng);
     storage = FirebaseStorage.getInstance();
     storageReference = storage.getReference();
 
 
+    dadosOng.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent i = new Intent(Perfil.this, DadosOng.class);
+        startActivity(i);
+        CustomIntent.customType(Perfil.this, "left-to-right");
+
+      }
+    });
     dadosPessoais.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -96,14 +108,6 @@ public class Perfil extends AppCompatActivity {
       }
     });
 
-    salvos.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Intent i = new Intent(Perfil.this, SalvosPerfil.class);
-        startActivity(i);
-        CustomIntent.customType(Perfil.this, "left-to-right");
-      }
-    });
     notifica.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -217,7 +221,15 @@ public class Perfil extends AppCompatActivity {
         @Override
         public void onDataChange(@NonNull DataSnapshot datasnapshot) {
           String usuario = datasnapshot.child("usuario").getValue(String.class);
+          Boolean tipoOng = datasnapshot.child("tipoOng").getValue(Boolean.class);
           nome_TelaPerfil.setText(usuario);
+          if(tipoOng.equals(true)){
+            dadosOng.setVisibility(View.VISIBLE);
+            divisor.setVisibility(View.VISIBLE);
+          } else{
+            dadosOng.setVisibility(View.GONE);
+            divisor.setVisibility(View.GONE);
+          }
         }
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {

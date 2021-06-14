@@ -1,8 +1,5 @@
 package com.example.icarealot.activites;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +9,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.icarealot.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,22 +26,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
+
+import org.jetbrains.annotations.NotNull;
 
 import maes.tech.intentanim.CustomIntent;
 
 public class AlterarSenhaPerfil extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
-    private StorageReference storageReference;
-    private DatabaseReference databaseReference;
     private TextView senhaAtual;
     private EditText senhaNova;
     private ImageButton voltar;
     private String password;
+    private String emailUser;
     private String atual;
     private Button alterarsenha;
-
+    private static final String TAG = "AlterarSenhaPerfil";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,8 +84,10 @@ public class AlterarSenhaPerfil extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                     String senha = datasnapshot.child("senha").getValue(String.class);
+                    String email = datasnapshot.child("email").getValue(String.class);
                     senhaAtual.setText(senha);
                     atual = senha;
+                    emailUser = email;
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -104,7 +111,6 @@ public class AlterarSenhaPerfil extends AppCompatActivity {
         }else {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             DatabaseReference reference = mDatabase.getReference().child("usuarios").child(user.getUid());
-            String teste = null;
 
             if(password.toString().equals(atual)){
                 builder.setMessage("A nova senha, não pode ser igual a senha anterior!");
@@ -117,17 +123,35 @@ public class AlterarSenhaPerfil extends AppCompatActivity {
             }else {
                 reference.child("senha").setValue(password);
                 user.updatePassword(password);
-                builder.setMessage("Senha Alterada com sucesso!");
                 builder.setCancelable(true);
+                builder.setMessage("Senha Alterada com sucesso!");
                 builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
                         finish();
                         startActivity(getIntent());
                     }
                 });
                 builder.show();
+
+                new java.util.Timer().schedule(new java.util.TimerTask() {
+                   @Override
+                   public void run() {
+                       AuthCredential credential = EmailAuthProvider.getCredential(emailUser, password);
+                       FirebaseAuth.getInstance().getCurrentUser().reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                           @Override
+                           public void onComplete(@NonNull @NotNull Task<Void> task) {
+                               Log.d(TAG, "User re-authenticated."+ task);
+                               if(task.isSuccessful()){
+                                   Toast.makeText(AlterarSenhaPerfil.this, "Autenticação concluida", Toast.LENGTH_SHORT).show();
+                               } else {
+                                   Toast.makeText(AlterarSenhaPerfil.this, "Autenticação não efetuada!.", Toast.LENGTH_SHORT).show();                                }
+                           }
+                       });
+                   }
+               }, 3000
+                );
             }
         }
     }
+
 }

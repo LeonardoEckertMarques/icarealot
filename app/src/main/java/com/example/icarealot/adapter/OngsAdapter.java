@@ -54,7 +54,7 @@ public class OngsAdapter extends RecyclerView.Adapter<OngsAdapter.OngsViewHolder
     holder.nome.setText(ongsList.get(position).getNome());
     //holder.descricao.setText(ongsList.get(position).getDescricao());
     //holder.telefone.setText(ongsList.get(position).getTelefone());
-    Picasso.get().load(ongsList.get(position).getUrlFoto()).into(holder.ongCoverImage);
+    Picasso.get().load(ongsList.get(position).getFoto()).into(holder.ongCoverImage);
   }
 
   @Override

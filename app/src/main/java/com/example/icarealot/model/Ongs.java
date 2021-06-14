@@ -4,25 +4,31 @@ public class Ongs {
 
   private Address address;
   private String descricao;
-  private String urlFoto;
+  private String foto;
   private Geo geo;
   private String id;
   private String nome;
   private String telefone;
   private Transferencia transferencia;
 
-  public Ongs() {}
 
-  public Ongs(Address address, String descricao, String urlFoto, Geo geo, String id, String nome, String telefone, Transferencia transferencia) {
+
+  public Ongs() {
+
+  }
+
+  public Ongs(Address address, String descricao, String foto, Geo geo, String id, String nome, String telefone, Transferencia transferencia) {
     this.address = address;
     this.descricao = descricao;
-    this.urlFoto = urlFoto;
+    this.foto = foto;
     this.geo = geo;
     this.id = id;
     this.nome = nome;
     this.telefone = telefone;
     this.transferencia = transferencia;
+
   }
+
 
   public Address getAddress() {
     return address;
@@ -40,12 +46,12 @@ public class Ongs {
     this.descricao = descricao;
   }
 
-  public String getUrlFoto() {
-    return urlFoto;
+  public String getFoto() {
+    return foto;
   }
 
-  public void setUrlFoto(String urlFoto) {
-    this.urlFoto = urlFoto;
+  public void setFoto(String foto) {
+    this.foto = foto;
   }
 
   public Geo getGeo() {

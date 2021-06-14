@@ -88,7 +88,7 @@ public class TelaInicial extends AppCompatActivity {
             ongs.setNome(jsonObject.getString("nome").toString());
             //ongs.setDescricao(jsonObject.getString("descricao").toString());
             //ongs.setTelefone(jsonObject.getString("telefone").toString());
-            ongs.setUrlFoto(jsonObject.getString("foto").toString());
+            ongs.setFoto(jsonObject.getString("foto").toString());
             ongsList.add(ongs);
           } catch (JSONException e) {
             e.printStackTrace();
