@@ -135,9 +135,6 @@ public class DadosOng extends AppCompatActivity {
                 }
             });
         }
-        if (user.getPhotoUrl() != null) {
-            fotoPerfilOng = user.getPhotoUrl().toString();
-        }
     }
 
     public void getOngDados() {
@@ -185,6 +182,7 @@ public class DadosOng extends AppCompatActivity {
     }
 
     public void onCadastrarOng() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("ongs");
         myRef.orderByChild("nome").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -192,10 +190,16 @@ public class DadosOng extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<String> key =  new ArrayList<String>();
 
+                long lista = dataSnapshot.getChildrenCount();
+
                 for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
                     ongNome = childDataSnapshot.child("nome").getValue().toString();
                 }
                 if (ongNome != nomeUser) {
+
+                    if (user.getPhotoUrl() != null) {
+                        fotoPerfilOng = user.getPhotoUrl().toString();
+                    }
 
                     Ongs ongs = new Ongs();
                     ongs.setDescricao(descricao.getText().toString());
@@ -241,9 +245,8 @@ public class DadosOng extends AppCompatActivity {
                     transferencia.setPix(pix.getText().toString());
                     ongs.setTransferencia(transferencia);
 
-                    DatabaseReference reference = mDatabase.getReference().child("ongs").push();
+                    DatabaseReference reference = mDatabase.getReference().child("ongs").child(String.valueOf(lista));
                     reference.setValue(ongs);
-
 
                 }
                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(DadosOng.this);
