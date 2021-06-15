@@ -51,7 +51,6 @@ public class Perfil extends AppCompatActivity {
   private TextView nome_TelaPerfil;
   private Button dadosPessoais;
   private Button configuracoes;
-  private Button notifica;
   private Button logout;
   private Button dadosOng;
   private View divisor;
@@ -73,7 +72,6 @@ public class Perfil extends AppCompatActivity {
     dadosPessoais = findViewById(R.id.btn_dados_TelaPerfil);
     imagemPerfil = findViewById(R.id.foto_TelaPerfil);
     configuracoes = findViewById(R.id.btn_configuracoes_TelaPerfil);
-    notifica = findViewById(R.id.btn_notificacoes_TelaPerfil);
     logout = findViewById(R.id.btn_logout_TelaPerfil2);
     dadosOng = findViewById(R.id.btn_dadosOng_TelaPerfil);
     divisor = findViewById(R.id.divisorOng);
@@ -108,14 +106,6 @@ public class Perfil extends AppCompatActivity {
       }
     });
 
-    notifica.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Intent i = new Intent(Perfil.this, NotificacoesPerfil.class);
-        startActivity(i);
-        CustomIntent.customType(Perfil.this, "left-to-right");
-      }
-    });
     logout.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -192,6 +182,8 @@ public class Perfil extends AppCompatActivity {
       @Override
       public void onSuccess(Void unused) {
         Toast.makeText(Perfil.this, "Update Sucesfully", Toast.LENGTH_SHORT).show();
+        finish();
+        startActivity(getIntent());
       }
     }).addOnFailureListener(new OnFailureListener() {
       @Override
