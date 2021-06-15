@@ -42,7 +42,7 @@ public class Login extends AppCompatActivity
     edit_senha = findViewById(R.id.edit_senha);
     btn_login = findViewById(R.id.btn_login);
     btn_cadastro_login = findViewById(R.id.btn_cadastro_login);
-    cb_mostrar_senha = findViewById(R.id.cb_mostrar_senha);
+   // cb_mostrar_senha = findViewById(R.id.cb_mostrar_senha);
     login_progessbar = findViewById(R.id.login_progessbar);
 
     btn_login.setOnClickListener(this);

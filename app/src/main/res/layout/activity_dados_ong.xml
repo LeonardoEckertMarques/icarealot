@@ -88,7 +88,7 @@
                 android:layout_gravity="center"
                 android:ems="10"
                 android:hint="Numero"
-                android:inputType="textPersonName" />
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/complemento_ong"
@@ -115,7 +115,7 @@
                 android:layout_gravity="center"
                 android:ems="10"
                 android:hint="CEP"
-                android:inputType="textPersonName" />
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/latitude_ong"
@@ -142,7 +142,7 @@
                 android:layout_gravity="center"
                 android:ems="10"
                 android:hint="Telefone com DDD"
-                android:inputType="textPersonName" />
+                android:inputType="number" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -170,7 +170,7 @@
                 android:layout_gravity="center"
                 android:ems="10"
                 android:hint="Agência"
-                android:inputType="textPersonName" />
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/conta_ong"
@@ -179,7 +179,7 @@
                 android:layout_gravity="center"
                 android:ems="10"
                 android:hint="Conta"
-                android:inputType="textPersonName" />
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/identificador_ong"

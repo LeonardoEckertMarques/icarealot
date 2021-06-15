@@ -15,17 +15,12 @@ import com.example.icarealot.services.MapsActivity;
 import com.example.icarealot.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Salvos extends AppCompatActivity implements View.OnClickListener {
-
-  private Button bLogout;
+public class Salvos extends AppCompatActivity  {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_salvos);
-    //Instanciando o botão Logout...
-    bLogout = findViewById(R.id.bLogout);
-    bLogout.setOnClickListener(this);
 
     //Menu de itens importante anexar o INDEX para navegação do usuário!
     //Caso contrário o menu não funciona corretamente, referente ao return!
@@ -53,17 +48,6 @@ public class Salvos extends AppCompatActivity implements View.OnClickListener {
         return false;
       }
     });
-  }
-
-    public void onClick(View view) {
-    switch (view.getId()) {
-      case R.id.bLogout:
-        FirebaseServices.getFirebaseAuthLogout();
-        Intent intent = new Intent(Salvos.this, Cadastro.class);
-        startActivity(intent);
-        finish();
-        break;
-    }
   }
 
 }

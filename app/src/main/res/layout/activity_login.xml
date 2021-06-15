@@ -28,25 +28,29 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
-    <EditText
-        android:id="@+id/edit_senha"
-        android:layout_width="300dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etPasswordLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/white"
-        android:hint="Senha"
-        android:inputType="textPassword"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+        android:textColorHint="@color/white"
+        style="@style/StyledTilEditTextlogin"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/white">
 
-    <CheckBox
-        android:id="@+id/cb_mostrar_senha"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:buttonTint="@color/white"
-        android:text="Mostrar senha?"
-        android:textColor="@color/white" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_senha"
+            android:layout_width="300dp"
+            android:layout_height="46dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/white"
+            android:hint="Senha"
+            android:inputType="textPassword"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/white"
+            android:textColorHint="@color/white"
+            android:textColorLink="@color/white"
+            android:textCursorDrawable="@color/white" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <Button

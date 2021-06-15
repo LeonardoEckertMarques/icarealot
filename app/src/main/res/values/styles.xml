@@ -6,4 +6,21 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
+    <style name="StyledTilEditTextTheme">
+        <item name="colorControlActivated">@color/end</item> // Cor linha e texto quando recebe foco
+    </style>
+
+    <style name="StyledTilEditText">
+        <item name="android:theme">@style/StyledTilEditTextTheme</item>
+        <item name="android:paddingTop">4dp</item>
+    </style>
+    <style name="StyledTilEditTextThemelogin">
+        <item name="colorControlActivated">@color/white</item> // Cor linha e texto quando recebe foco
+    </style>
+
+    <style name="StyledTilEditTextlogin">
+        <item name="android:theme">@style/StyledTilEditTextThemelogin</item>
+        <item name="android:paddingTop">4dp</item>
+    </style>
+
 </resources>

@@ -48,7 +48,7 @@ public class Cadastro extends AppCompatActivity
     email = findViewById(R.id.email);
     cpfCnpj = findViewById(R.id.cpfCnpj);
     senha = findViewById(R.id.senha);
-    cb_mostrar_senha_cadastro = findViewById(R.id.cb_mostrar_senha_cadastro);
+    //cb_mostrar_senha_cadastro = findViewById(R.id.cb_mostrar_senha_cadastro);
     cb_ong_cadastro = findViewById(R.id.cb_ong_cadastro);
     cadastro_progessbar = findViewById(R.id.cadastro_progessbar);
     btnCadastro = findViewById(R.id.btn_cadastro);

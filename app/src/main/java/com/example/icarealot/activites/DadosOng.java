@@ -32,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 import maes.tech.intentanim.CustomIntent;
 
 public class DadosOng extends AppCompatActivity {
@@ -107,7 +108,8 @@ public class DadosOng extends AppCompatActivity {
                 alterarOng();
             }
         });
-
+        MaskEditTextChangedListener maskCEP = new MaskEditTextChangedListener("#####-###", cep);
+        cep.addTextChangedListener(maskCEP);
     }
 
     @Override

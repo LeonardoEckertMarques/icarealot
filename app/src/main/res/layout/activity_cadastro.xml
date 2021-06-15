@@ -85,21 +85,22 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.927" />z
+        app:layout_constraintVertical_bias="0.927" />
 
-    <EditText
-        android:id="@+id/senha"
-        android:layout_width="337dp"
-        android:layout_height="70dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:backgroundTint="@color/end"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.633" />
+
+<!--    <EditText-->
+<!--        android:id="@+id/senha"-->
+<!--        android:layout_width="337dp"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="textPassword"-->
+<!--        android:backgroundTint="@color/end"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.486"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.633" />-->
 
     <TextView
         android:id="@+id/login_senha_tv"
@@ -197,20 +198,6 @@
         app:layout_constraintVertical_bias="0.022" />
 
     <CheckBox
-        android:id="@+id/cb_mostrar_senha_cadastro"
-        android:layout_width="337dp"
-        android:layout_height="wrap_content"
-        android:buttonTint="@color/silver"
-        android:text="Mostrar senha?"
-        android:textColor="@color/silver"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.715" />
-
-    <CheckBox
         android:id="@+id/cb_ong_cadastro"
         android:layout_width="337dp"
         android:layout_height="wrap_content"
@@ -221,7 +208,43 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cb_mostrar_senha_cadastro"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="337dp"
+        android:layout_height="70dp"
+        style="@style/StyledTilEditText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.632"
+        app:passwordToggleEnabled="true"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/senha"
+            android:layout_width="337dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/end"
+            android:inputType="textPassword"
+            android:textColorHighlight="@color/end"
+            android:textColorHint="@color/end"
+            android:textColorLink="@color/end"
+            android:textCursorDrawable="@color/end"
+            android:textIsSelectable="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.486"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.622" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
