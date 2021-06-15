@@ -2,11 +2,11 @@ package com.example.icarealot.model;
 
 public class Geo {
 
-  private double lat;
-  private double lng;
+  double lat;
+  double lng;
 
-  public Geo(double lat, double lng) {
-    this.lat = lat;
+  public Geo(double latitude, double longitude) {
+    this.lat = latitude;
     this.lng = lng;
   }
 

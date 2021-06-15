@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.icarealot.R;
 import com.example.icarealot.model.Geo;
+import com.example.icarealot.model.Ongs;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,18 +30,25 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap mMap;
 
-    private Marker currentLocationMarker;
+    private Marker currentLocationMaker;
     private LatLng currentLocationLatLong;
     private DatabaseReference mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +60,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         startGettingLocations();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        getMarkers();
 
     }
+
 
     /**
      * Manipulates the map once available.
@@ -67,190 +78,52 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        //Add a marker in Sydney and move the camera
-        //LatLng sydney = new LatLng(-34, 151);
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-
         // Seleciona o local que o mapa vai marcar ao abrir
-        LatLng porto_alegre = new LatLng(-30.034647, -51.217659);
+        LatLng porto_alegre = new LatLng(-30.013188, -51.156036);
         mMap.addMarker(new MarkerOptions().position(porto_alegre).title("Porto Alegre"));
 
         CameraPosition cameraPosition = new CameraPosition.Builder().zoom(15).target(porto_alegre).build();
+
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(porto_alegre));
-
-        // Seleciona o modo que o mapa é mostrado
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        // mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
 
     @Override
-    public void onLocationChanged(@NonNull Location location) {
+    public void onLocationChanged(Location location) {
 
-        if (currentLocationMarker != null) {
-            currentLocationMarker.remove();
+        if (currentLocationMaker != null) {
+            currentLocationMaker.remove();
         }
-
+        //Add marker
         currentLocationLatLong = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(currentLocationLatLong);
-        markerOptions.title("Localização Atual");
+        markerOptions.title("Localização atual");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-        currentLocationMarker = mMap.addMarker(markerOptions);
+        currentLocationMaker = mMap.addMarker(markerOptions);
 
+        //Move to new location
         CameraPosition cameraPosition = new CameraPosition.Builder().zoom(15).target(currentLocationLatLong).build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-        Geo geo = new Geo(location.getLatitude(), location.getLongitude());
-        //mDatabase.child("Location").child(String.valueOf(new Date).getTime))).mDatabase.setValue();
+        Geo locationData = new Geo(location.getLatitude(), location.getLongitude());
+        mDatabase.child(String.valueOf("Ongs")).child(String.valueOf("Geo"));
 
-        Toast.makeText(this, "Localização Atualizada", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Localização atualizada", Toast.LENGTH_SHORT).show();
+        getMarkers();
 
     }
-    
-    private void startGettingLocations() {
-
-        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        boolean isGPS = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        boolean isNetwork = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        boolean canGetLocation = true;
-        int ALL_PERMISSIONS_RESULT = 101;
-        long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
-        long MIN_TIME_BW_UPDATES = 1000 * 10;
-
-        ArrayList<String> permissions = new ArrayList<>();
-        ArrayList<String> permissionsToRequest;
-
-        permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
-        permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-        permissionsToRequest = findUnAskedPermission(permissions);
-
-        if (!isGPS && !isNetwork) {
-            showSettingsAlert();
-        } else {
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (permissionsToRequest.size() > 0) {
-                    requestPermissions(permissionsToRequest.toArray(new String[permissionsToRequest.size()]),
-                            ALL_PERMISSIONS_RESULT);
-                    canGetLocation = false;
-                }
-            }
-        }
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-
-
-            Toast.makeText(this, "Permissão Negada", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-
-        if (canGetLocation) {
-            if (isGPS) {
-                lm.requestLocationUpdates(
-                        LocationManager.GPS_PROVIDER,
-                        MIN_TIME_BW_UPDATES,
-                        MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-
-            } else if (isNetwork) {
-                lm.requestLocationUpdates(
-                        LocationManager.NETWORK_PROVIDER,
-                        MIN_TIME_BW_UPDATES,
-                        MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-
-            }
-        } else {
-            Toast.makeText(this, "Não é possível obter a localização", Toast.LENGTH_LONG).show();
-        }
-
-
-        // ESSES ITENS COMENTADOS SÃO PARA ATUALIZAR OS MARCADORES NO MAPA, PRECISAMOS VER COMO SERÁ FEITO
-        /*private void getMarkers() {
-
-            mDatabase.child("Location").addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.getValue() != null)
-                                getAllLocation((Map<String, Object>) dataSnapshot.getValue());
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError error) {
-
-                        }
-                    });
-        }*/
-        
-        
-    }
-
-    /*private void getAllLocation(Map<String, Object> Location) {
-
-        private void getAllLocations(Map <String, Object> Location){
-
-            for (Map.Entry<String, Object> entry: Location.entrySet()) {
-
-                Date newDate = new Date(Long.valueOf(entry.getKey()));
-                Map singleLocation = (Map) entry.getValue();
-                LatLng latLng = new LatLng((Double) singleLocation.get("latitude"), (Double) singleLocation.get("longitude"));
-                addGreenMarker(newDate, latLng);
-            }
-        }
-    }*/
-
-    /*private void addGreenMarker(Date newDate, LatLng latLng) {
-
-        private void addGreenMarker (Date newDate, LatLng latLng){
-            SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(latLng);
-            markerOptions.title(dt.format(newDate));
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-            mMap.addMarker(markerOptions);
-
-        }
-    }*/
 
 
 
-    private void showSettingsAlert() {
-
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("GPS Desativado");
-        alertDialog.setMessage("Deseja Ativar o GPS?");
-        alertDialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
-            }
-        });
-
-        alertDialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        alertDialog.show();
-    }
-
-    private ArrayList findUnAskedPermission(ArrayList<String> wanted) {
+    private ArrayList findUnAskedPermissions(ArrayList<String> wanted) {
         ArrayList result = new ArrayList();
 
-        for (String perm : wanted ) {
+        for (String perm : wanted) {
             if (!hasPermission(perm)) {
                 result.add(perm);
             }
         }
+
         return result;
     }
 
@@ -267,18 +140,151 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
     }
 
+    public void showSettingsAlert() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("GPS desativado!");
+        alertDialog.setMessage("Ativar GPS?");
+        alertDialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
+        });
+
+        alertDialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+
+    private void startGettingLocations() {
+
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        boolean isGPS = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean isNetwork = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        boolean canGetLocation = true;
+        int ALL_PERMISSIONS_RESULT = 101;
+        long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;// Distance in meters
+        long MIN_TIME_BW_UPDATES = 1000 * 10;// Time in milliseconds
+
+        ArrayList<String> permissions = new ArrayList<>();
+        ArrayList<String> permissionsToRequest;
+
+        permissions.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
+        permissions.add(android.Manifest.permission.ACCESS_COARSE_LOCATION);
+        permissionsToRequest = findUnAskedPermissions(permissions);
+
+        //Check if GPS and Network are on, if not asks the user to turn on
+        if (!isGPS && !isNetwork) {
+            showSettingsAlert();
+        } else {
+            // check permissions
+
+            // check permissions for later versions
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (permissionsToRequest.size() > 0) {
+                    requestPermissions(permissionsToRequest.toArray(new String[permissionsToRequest.size()]),
+                            ALL_PERMISSIONS_RESULT);
+                    canGetLocation = false;
+                }
+            }
+        }
+
+
+        //Checks if FINE LOCATION and COARSE Location were granted
+        if (ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+            Toast.makeText(this, "Permissão negada", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //Starts requesting location updates
+        if (canGetLocation) {
+            if (isGPS) {
+                lm.requestLocationUpdates(
+                        LocationManager.GPS_PROVIDER,
+                        MIN_TIME_BW_UPDATES,
+                        MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+
+            } else if (isNetwork) {
+                // from Network Provider
+
+                lm.requestLocationUpdates(
+                        LocationManager.NETWORK_PROVIDER,
+                        MIN_TIME_BW_UPDATES,
+                        MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+
+            }
+        } else {
+            Toast.makeText(this, "Não é possível obter a localização", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void getMarkers(){
+
+        mDatabase.child("location").addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        //Get map of users in datasnapshot
+                        if (dataSnapshot.getValue() != null)
+                            getAllLocations((Map<String,Object>) dataSnapshot.getValue());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                    }
+                });
+    }
+
+    private void getAllLocations(Map<String,Object> locations) {
+
+
+
+
+        for (Map.Entry<String, Object> entry : locations.entrySet()){
+
+            Date newDate = new Date(Long.valueOf(entry.getKey()));
+            Map singleLocation = (Map) entry.getValue();
+            LatLng latLng = new LatLng((Double) singleLocation.get("latitude"), (Double)singleLocation.get("longitude"));
+            addGreenMarker(newDate, latLng);
+
+        }
+
+
+    }
+
+    private void addGreenMarker(Date newDate, LatLng latLng) {
+        SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title(dt.format(newDate));
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+        mMap.addMarker(markerOptions);
+    }
+
+
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
 
     }
 
     @Override
-    public void onProviderEnabled(@NonNull String provider) {
+    public void onProviderEnabled(String provider) {
 
     }
 
     @Override
-    public void onProviderDisabled(@NonNull String provider) {
+    public void onProviderDisabled(String provider) {
 
     }
 }
