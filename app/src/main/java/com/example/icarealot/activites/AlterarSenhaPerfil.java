@@ -88,6 +88,13 @@ public class AlterarSenhaPerfil extends AppCompatActivity {
                     senhaAtual.setText(senha);
                     atual = senha;
                     emailUser = email;
+                    AuthCredential credential = EmailAuthProvider.getCredential(email, senha);
+                    FirebaseAuth.getInstance().getCurrentUser().reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull @NotNull Task<Void> task) {
+                            Log.d(TAG, "User re-authenticated."+ task);
+                        }
+                    });
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -133,6 +140,7 @@ public class AlterarSenhaPerfil extends AppCompatActivity {
                 });
                 builder.show();
 
+
                 new java.util.Timer().schedule(new java.util.TimerTask() {
                    @Override
                    public void run() {
@@ -144,11 +152,13 @@ public class AlterarSenhaPerfil extends AppCompatActivity {
                                if(task.isSuccessful()){
                                    Toast.makeText(AlterarSenhaPerfil.this, "Autenticação concluida", Toast.LENGTH_SHORT).show();
                                } else {
-                                   Toast.makeText(AlterarSenhaPerfil.this, "Autenticação não efetuada!.", Toast.LENGTH_SHORT).show();                                }
+                                   Toast.makeText(AlterarSenhaPerfil.this, "Autenticação não efetuada!.", Toast.LENGTH_SHORT).show();
+                               }
                            }
                        });
                    }
-               }, 3000
+
+               }, 2000
                 );
             }
         }

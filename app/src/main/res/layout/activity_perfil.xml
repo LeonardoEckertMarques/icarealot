@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00FFFFFF"
     android:backgroundTint="#00FFFFFF"
-    tools:context=".activites.Perfil">
+    tools:context=".activites.Perfil"
+    >
 
 
     <Button
@@ -18,13 +20,13 @@
         android:text="Logout"
         android:textAllCaps="false"
         android:textColor="@color/darkMode"
-        android:textSize="20dp"
+        android:textSize="22dp"
         app:layout_constraintBottom_toBottomOf="@+id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.775"
+        app:layout_constraintVertical_bias="0.704"
         tools:ignore="MissingConstraints" />
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -60,22 +62,6 @@
         app:layout_constraintVertical_bias="0.293" />
 
     <View
-        android:id="@+id/view"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/dark_gray2"
-        android:focusable="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.623"
-        tools:ignore="MissingConstraints" />
-
-    <View
         android:id="@+id/view10"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
@@ -88,7 +74,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.712"
+        app:layout_constraintVertical_bias="0.647"
         tools:ignore="MissingConstraints" />
 
     <Button
@@ -100,13 +86,13 @@
         android:text="Dados Pessoais"
         android:textAllCaps="false"
         android:textColor="@color/darkMode"
-        android:textSize="20dp"
+        android:textSize="22dp"
         app:layout_constraintBottom_toBottomOf="@+id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.486"
+        app:layout_constraintVertical_bias="0.514"
         tools:ignore="MissingConstraints" />
 
     <Button
@@ -118,13 +104,13 @@
         android:text="Dados Ong"
         android:textAllCaps="false"
         android:textColor="@color/darkMode"
-        android:textSize="20dp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@+id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.389"
+        app:layout_constraintVertical_bias="0.422"
         tools:ignore="MissingConstraints" />
 
     <View
@@ -137,29 +123,12 @@
         android:focusable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.538"
+        app:layout_constraintVertical_bias="0.557"
         tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/btn_notificacoes_TelaPerfil"
-        style="@style/Base.TextAppearance.AppCompat"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@android:color/transparent"
-        android:text="Notificações"
-        android:textAllCaps="false"
-        android:textColor="@color/darkMode"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomNavigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.586"
-        tools:ignore="MissingConstraints" />
 
     <View
         android:id="@+id/view4"
@@ -174,9 +143,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.442"
+        app:layout_constraintVertical_bias="0.472"
         tools:ignore="MissingConstraints" />
-
 
     <View
         android:id="@+id/divisorOng"
@@ -191,7 +159,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.354"
+        app:layout_constraintVertical_bias="0.38"
         tools:ignore="MissingConstraints" />
 
     <Button
@@ -203,13 +171,13 @@
         android:text="Configurações"
         android:textAllCaps="false"
         android:textColor="@color/darkMode"
-        android:textSize="20dp"
+        android:textSize="22dp"
         app:layout_constraintBottom_toBottomOf="@+id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.676"
+        app:layout_constraintVertical_bias="0.607"
         tools:ignore="MissingConstraints" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

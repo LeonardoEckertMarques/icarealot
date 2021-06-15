@@ -270,6 +270,10 @@ public class DadosOng extends AppCompatActivity {
         });
     }
     public void alterarOng(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user.getPhotoUrl() != null) {
+            fotoPerfilOng = user.getPhotoUrl().toString();
+        }
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("ongs");
         myRef.orderByChild("nome").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -296,6 +300,7 @@ public class DadosOng extends AppCompatActivity {
                         myRef.child(id).child("transferencia").child("conta").setValue(conta.getText().toString());
                         myRef.child(id).child("transferencia").child("identificador").setValue(identificador.getText().toString());
                         myRef.child(id).child("transferencia").child("pix").setValue(pix.getText().toString());
+                        Log.i("foto", "foto"+ fotoPerfilOng);
                         myRef.child(id).child("foto").setValue(fotoPerfilOng);
                     }
 
@@ -305,7 +310,7 @@ public class DadosOng extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
-                Toast.makeText(DadosOng.this, "Alteração não concluid", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DadosOng.this, "Alteração não concluida", Toast.LENGTH_SHORT).show();
 
             }
         });
