@@ -182,8 +182,7 @@ public class Perfil extends AppCompatActivity {
       @Override
       public void onSuccess(Void unused) {
         Toast.makeText(Perfil.this, "Update Sucesfully", Toast.LENGTH_SHORT).show();
-        finish();
-        startActivity(getIntent());
+        imagemPerfil.setImageURI(imageUri);
       }
     }).addOnFailureListener(new OnFailureListener() {
       @Override
